@@ -80,3 +80,11 @@ async def search_by_author(author: str):
         if book.get('author').casefold() == author.casefold():
             result.append(book)
     return result
+
+@app.get('/books/search_by_author/{author}')
+async def search_by_author(author: str):
+    result = []
+    for book in BOOKS:
+        if book.get('author').casefold() == author.casefold():
+            result.append(book)
+    return result 
