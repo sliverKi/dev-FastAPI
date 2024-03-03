@@ -1,4 +1,10 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Body
+from pydantic import BaseModel
+
+class Book(BaseModel):
+    title: str
+    author: str
+    category: str
 
 app = FastAPI()
 
@@ -48,3 +54,7 @@ async def read_books_with_path_and_query(book_author:str, category: str):
 @app.get('/books/{dynamic_param}')
 async def read_single_book(dynamic_param):
     return {'BOOK '+dynamic_param: BOOKS[int(dynamic_param)]}
+
+@app.post('/books/create_book')
+async def create_book(new_book = Body()):
+    BOOKS.append(new_book)
