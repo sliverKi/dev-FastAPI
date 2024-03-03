@@ -58,3 +58,9 @@ async def read_single_book(dynamic_param):
 @app.post('/books/create_book')
 async def create_book(new_book = Body()):
     BOOKS.append(new_book)
+
+@app.put('/books/update_book')
+async def update_book(update_book = Body()):
+    for i in range(len(BOOKS)):
+        if BOOKS[i].get('title').casefold() == update_book.get('title').casefold():
+            BOOKS[i] = update_book
