@@ -10,6 +10,7 @@ app = FastAPI()
 
 BOOKS=[
     {'title':'Title One', 'author':'Author One', 'category':'science'},
+    {'title':'Title One and Half', 'author':'Author One', 'category':'korea'},
     {'title':'Title Two', 'author':'Author Two', 'category':'science'},
     {'title':'Title Three', 'author':'Author Three', 'category':'history'},
     {'title':'Title Four', 'author':'Author Four', 'category':'math'},
@@ -72,3 +73,10 @@ async def delete_book(book_title : str):
             BOOKS.pop(i)
             break
     
+@app.post('/books/search_by_author/')
+async def search_by_author(author: str):
+    result = []
+    for book in BOOKS:
+        if book.get('author').casefold() == author.casefold():
+            result.append(book)
+    return result
